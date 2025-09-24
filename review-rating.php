@@ -1,11 +1,13 @@
 <?php
-
 /**
  * Plugin Name: Review & Rating
- * Description: Adds a custom post type for Review & Rating in Turio.
+ * Description: Smart plugin for multi-criteria reviews and ratings to boost engagement.
  * Version: 1.0.0
  * Author: RH Jewel
+ * Author URI: https://rh-jewel.com/
  * Text Domain: review-rating
+ * License: GPL2
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 if (! defined('ABSPATH')) {

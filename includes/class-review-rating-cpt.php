@@ -75,7 +75,7 @@ class Review_Rating_CPT
      */
     public function add_custom_columns($columns)
     {
-        $columns['review_message'] = __('Message', 'review-rating');
+        $columns['review_message'] = __('Review Message', 'review-rating');
         $columns['review_status']  = __('Status', 'review-rating');
         return $columns;
     }

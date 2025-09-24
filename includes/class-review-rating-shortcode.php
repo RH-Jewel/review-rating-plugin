@@ -59,7 +59,7 @@ class Review_Rating_Shortcode
             $avg_rating = round(array_sum($all_ratings) / $total_reviews, 1);
         }
 
-        // ✅ Dynamic criteria labels from plugin settings
+        // Dynamic criteria labels from plugin settings
         $criteria_labels = get_option('review_criteria_labels', [
             'overall'      => 'Overall',
             'transport'    => 'Transport',
@@ -75,7 +75,7 @@ class Review_Rating_Shortcode
         }
 ?>
         <div class="customer-rating-area">
-            <h4>Customer Review & Rating</h4>
+            <h4><?php echo __('Customer Review & Rating', 'review-rating') ?></h4>
             <div class="rating-wrapper">
                 <div class="rating-area">
                     <span><?php echo ($avg_rating >= 4) ? 'Excellent!' : 'Good'; ?></span>
@@ -94,11 +94,11 @@ class Review_Rating_Shortcode
                     </ul>
                     <p>
                         <strong><?php echo esc_html($avg_rating); ?></strong>
-                        based on <?php echo esc_html($total_reviews); ?> reviews
+                        <?php echo __('based on ', 'review-rating') . esc_html($total_reviews) . __(' reviews', 'review-rating') ?>
                     </p>
                     <button class="primary-btn1 two" data-bs-toggle="modal" data-bs-target="#ratingModal">
-                        <span>Write a Review</span>
-                        <span>Write a Review</span>
+                        <span><?php echo __('Write a Review', 'review-rating') ?></span>
+                        <span><?php echo __('Write a Review', 'review-rating') ?></span>
                     </button>
                 </div>
 
@@ -110,10 +110,10 @@ class Review_Rating_Shortcode
                     ?>
                         <div class="progress-item">
                             <span><?php echo esc_html($label); ?></span>
+                            <span class="progress-score"><?php echo number_format($avg, 1); ?></span>
                             <div class="progress">
                                 <div class="progress-bar" style="width:<?php echo esc_attr($percent); ?>%"></div>
                             </div>
-                            <span class="progress-score"><?php echo number_format($avg, 1); ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -156,7 +156,7 @@ class Review_Rating_Shortcode
                             </li>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No reviews yet. Be the first to write one!</p>
+                        <p><?php echo __('No reviews yet. Be the first to write one!', 'review-rating') ?></p>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -168,35 +168,37 @@ class Review_Rating_Shortcode
                 <div class="modal-content">
                     <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">X</button>
                     <div class="modal-body">
-                        <h4 class="modal-title">Give Your Review</h4>
+                        <h4 class="modal-title"><?php echo __('Give Your Review', 'review-rating') ?></h4>
                         <form method="post" class="review-form-wrapper">
-                            <div class="form-inner">
-                                <label>Your Feedback</label>
-                                <textarea name="review_content" required></textarea>
+                            <div class="form-inner mb-25">
+                                <label><?php echo __('Your Feedback', 'review-rating') ?></label>
+                                <textarea name="review_content" placeholder="Write a your tour feedback" required></textarea>
                             </div>
                             <div class="form-inner">
-                                <label>Your Name</label>
-                                <input type="text" name="review_name" required>
+                                <label><?php echo __('Your Name', 'review-rating') ?></label>
+                                <input type="text" placeholder="Your Name" name="review_name" required>
                             </div>
 
-                            <!-- Multi Criteria -->
-                            <?php foreach ($criteria_labels as $key => $label): ?>
-                                <div class="form-inner">
-                                    <label><?php echo esc_html($label); ?></label>
-                                    <select name="rating_<?php echo esc_attr($key); ?>" required>
-                                        <option value="">Select</option>
-                                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <option value="<?php echo $i; ?>"><?php echo $i; ?> ★</option>
-                                        <?php endfor; ?>
-                                    </select>
-                                </div>
-                            <?php endforeach; ?>
+                            <div class="multi-criteria">
+                                <!-- Multi Criteria -->
+                                <?php foreach ($criteria_labels as $key => $label): ?>
+                                    <div class="form-inner">
+                                        <label><?php echo esc_html($label); ?></label>
+                                        <select name="rating_<?php echo esc_attr($key); ?>" required>
+                                            <option value=""><?php echo __('Select', 'review-rating') ?></option>
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <option value="<?php echo $i; ?>">Give <?php echo $i; ?> ★</option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
 
                             <?php wp_nonce_field('submit_review_nonce', 'review_nonce'); ?>
                             <input type="hidden" name="review_post_id" value="<?php echo esc_attr($post->ID); ?>">
                             <button type="submit" name="submit_review" class="primary-btn1 black-bg">
-                                <span>Post Comment</span>
-                                <span>Post Comment</span>
+                                <span><?php echo __('Submit Rating', 'review-rating') ?></span>
+                                <span><?php echo __('Submit Rating', 'review-rating') ?></span>
                             </button>
                         </form>
                     </div>
@@ -215,7 +217,7 @@ class Review_Rating_Shortcode
             $content = sanitize_textarea_field($_POST['review_content']);
             $post_id = intval($_POST['review_post_id']);
 
-            // ✅ Dynamic criteria
+            // Dynamic criteria
             $criteria_labels = get_option('review_criteria_labels', [
                 'overall'      => 'Overall',
                 'transport'    => 'Transport',
