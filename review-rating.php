@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Review & Rating
  * Description: Adds a custom post type for Review & Rating in Turio.
@@ -19,6 +20,8 @@ define('REVIEW_RATING_URL', plugin_dir_url(__FILE__));
 require_once REVIEW_RATING_PATH . 'includes/class-review-rating-cpt.php';
 require_once REVIEW_RATING_PATH . 'includes/class-review-rating-shortcode.php';
 require_once REVIEW_RATING_PATH . 'includes/class-review-rating-card-shortcode.php';
+require_once REVIEW_RATING_PATH . 'includes/class-review-rating-settings.php';
+
 
 
 // Initialize
@@ -26,4 +29,5 @@ add_action('plugins_loaded', function () {
     new Review_Rating_CPT();
     new Review_Rating_Shortcode();
     new Post_Rating_Shortcode();
+    new Review_Rating_Settings();
 });

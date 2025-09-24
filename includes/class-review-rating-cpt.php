@@ -8,7 +8,15 @@ class Review_Rating_CPT
 
     public function __construct()
     {
+        // Register CPT
         add_action('init', [$this, 'register_review_rating_cpt']);
+
+        // Admin columns
+        add_filter('manage_review-rating_posts_columns', [$this, 'add_custom_columns']);
+        add_action('manage_review-rating_posts_custom_column', [$this, 'render_custom_columns'], 10, 2);
+
+        // Approve / Unapprove action
+        add_action('admin_post_toggle_review_status', [$this, 'toggle_review_status']);
     }
 
     public function register_review_rating_cpt()
@@ -44,7 +52,7 @@ class Review_Rating_CPT
             'description'         => esc_html__('Review & Rating', 'review-rating'),
             'labels'              => $labels,
             'capabilities'        => $capabilities,
-            'supports'            => array('title'),
+            'supports'            => array('title', 'editor'),
             'hierarchical'        => true,
             'public'              => true,
             'has_archive'         => true,
@@ -60,5 +68,66 @@ class Review_Rating_CPT
         );
 
         register_post_type('review-rating', $args);
+    }
+
+    /**
+     * Add custom columns (Message + Status)
+     */
+    public function add_custom_columns($columns)
+    {
+        $columns['review_message'] = __('Message', 'review-rating');
+        $columns['review_status']  = __('Status', 'review-rating');
+        return $columns;
+    }
+
+    /**
+     * Render custom column content
+     */
+    public function render_custom_columns($column, $post_id)
+    {
+        if ($column === 'review_message') {
+            $content = get_post_field('post_content', $post_id);
+            echo wp_trim_words(esc_html($content), 15, '...');
+        }
+
+        if ($column === 'review_status') {
+            $status = get_post_status($post_id);
+            $nonce  = wp_create_nonce('toggle_review_' . $post_id);
+            $url    = admin_url('admin-post.php?action=toggle_review_status&post_id=' . $post_id . '&_wpnonce=' . $nonce);
+
+            if ($status === 'publish') {
+                echo '<a href="' . esc_url($url) . '" class="button">Unapprove</a>';
+            } else {
+                echo '<a href="' . esc_url($url) . '" class="button button-primary">Approve</a>';
+            }
+        }
+    }
+
+    /**
+     * Handle approve/unapprove toggle
+     */
+    public function toggle_review_status()
+    {
+        if (! current_user_can('manage_options')) {
+            wp_die('Not allowed.');
+        }
+
+        $post_id = intval($_GET['post_id'] ?? 0);
+        if (! $post_id || get_post_type($post_id) !== 'review-rating') {
+            wp_die('Invalid review.');
+        }
+
+        check_admin_referer('toggle_review_' . $post_id);
+
+        $status = get_post_status($post_id);
+        $new_status = ($status === 'publish') ? 'draft' : 'publish';
+
+        wp_update_post([
+            'ID'          => $post_id,
+            'post_status' => $new_status,
+        ]);
+
+        wp_safe_redirect(admin_url('edit.php?post_type=review-rating'));
+        exit;
     }
 }

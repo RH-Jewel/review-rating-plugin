@@ -39,7 +39,13 @@ class Review_Rating_Shortcode
         $all_ratings   = [];
 
         // criteria sums
-        $criteria_sums = ['overall' => 0, 'transport' => 0, 'food' => 0, 'hospitality' => 0, 'destination' => 0];
+        $criteria_sums = [
+            'overall'     => 0,
+            'transport'   => 0,
+            'food'        => 0,
+            'hospitality' => 0,
+            'destination' => 0
+        ];
 
         if ($total_reviews > 0) {
             foreach ($reviews as $review) {
@@ -53,15 +59,21 @@ class Review_Rating_Shortcode
             $avg_rating = round(array_sum($all_ratings) / $total_reviews, 1);
         }
 
+        // ✅ Dynamic criteria labels from plugin settings
+        $criteria_labels = get_option('review_criteria_labels', [
+            'overall'      => 'Overall',
+            'transport'    => 'Transport',
+            'food'         => 'Food',
+            'hospitality'  => 'Hospitality',
+            'destination'  => 'Destination',
+        ]);
+
         // criteria averages
         $criteria_avgs   = [];
-        $criteria_labels = ['overall' => 'Overall', 'transport' => 'Transport', 'food' => 'Food', 'hospitality' => 'Hospitality', 'destination' => 'Destination'];
-
         foreach ($criteria_sums as $key => $sum) {
             $criteria_avgs[$key] = $total_reviews ? round($sum / $total_reviews, 1) : 0;
         }
 ?>
-
         <div class="customer-rating-area">
             <h4>Customer Review & Rating</h4>
             <div class="rating-wrapper">
@@ -93,7 +105,7 @@ class Review_Rating_Shortcode
                 <!-- Progress Bar Section -->
                 <div class="progress-list">
                     <?php foreach ($criteria_labels as $key => $label):
-                        $avg     = $criteria_avgs[$key];
+                        $avg     = $criteria_avgs[$key] ?? 0;
                         $percent = $avg * 20;
                     ?>
                         <div class="progress-item">
@@ -203,13 +215,19 @@ class Review_Rating_Shortcode
             $content = sanitize_textarea_field($_POST['review_content']);
             $post_id = intval($_POST['review_post_id']);
 
-            $criteria = [
-                'overall'     => intval($_POST['rating_value']),
-                'transport'   => intval($_POST['rating_transport']),
-                'food'        => intval($_POST['rating_food']),
-                'hospitality' => intval($_POST['rating_hospitality']),
-                'destination' => intval($_POST['rating_destination']),
-            ];
+            // ✅ Dynamic criteria
+            $criteria_labels = get_option('review_criteria_labels', [
+                'overall'      => 'Overall',
+                'transport'    => 'Transport',
+                'food'         => 'Food',
+                'hospitality'  => 'Hospitality',
+                'destination'  => 'Destination',
+            ]);
+
+            $criteria = [];
+            foreach ($criteria_labels as $key => $label) {
+                $criteria[$key] = isset($_POST['rating_' . $key]) ? intval($_POST['rating_' . $key]) : 0;
+            }
 
             // Calculate overall average
             $overall = round(array_sum($criteria) / count($criteria));
