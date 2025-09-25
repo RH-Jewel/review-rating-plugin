@@ -26,11 +26,12 @@ class Review_Rating_Settings
         add_settings_section('review_rating_settings_section', '', null, 'review-rating-settings');
 
         $defaults = ['overall', 'transport', 'food', 'hospitality', 'destination'];
+        $num = 1;
 
         foreach ($defaults as $key) {
             add_settings_field(
                 'review_criteria_' . $key,
-                ucfirst($key) . ' Label',
+                'Criteria label ' . $num,
                 function () use ($key) {
                     $options = get_option('review_criteria_labels');
                     $value   = isset($options[$key]) ? esc_attr($options[$key]) : ucfirst($key);
@@ -39,6 +40,7 @@ class Review_Rating_Settings
                 'review-rating-settings',
                 'review_rating_settings_section'
             );
+            $num++;
         }
     }
 
