@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Review & Rating
  * Description: Smart plugin for multi-criteria reviews and ratings to boost engagement.
@@ -24,6 +25,13 @@ require_once REVIEW_RATING_PATH . 'includes/class-review-rating-shortcode.php';
 require_once REVIEW_RATING_PATH . 'includes/class-review-rating-card-shortcode.php';
 require_once REVIEW_RATING_PATH . 'includes/class-review-rating-settings.php';
 
+// Enqueue plugin assets
+add_action('wp_enqueue_scripts', function () {
+    // CSS
+    wp_enqueue_style('review-rating-style', REVIEW_RATING_URL . 'assets/css/review-rating.css', [], '1.0.0');
+    // JS
+    wp_enqueue_script('review-rating-script', REVIEW_RATING_URL . 'assets/js/review-rating.js', ['jquery'], '1.0.0', true);
+});
 
 
 // Initialize

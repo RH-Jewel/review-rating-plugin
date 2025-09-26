@@ -170,6 +170,19 @@ class Review_Rating_Shortcode
                     <div class="modal-body">
                         <h4 class="modal-title"><?php echo __('Give Your Review', 'review-rating') ?></h4>
                         <form method="post" class="review-form-wrapper">
+                            <ul class="star-rating-list">
+                                <?php foreach ($criteria_labels as $key => $label): ?>
+                                    <li>
+                                        <span><?php echo esc_html($label); ?></span>
+                                        <div class="rating-container" data-key="<?php echo esc_attr($key); ?>" data-rating="0">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <i class="bi bi-star star-icon" data-value="<?php echo $i; ?>"></i>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <input type="hidden" name="rating_<?php echo esc_attr($key); ?>" value="0" required>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                             <div class="form-inner mb-25">
                                 <label><?php echo __('Your Feedback', 'review-rating') ?></label>
                                 <textarea name="review_content" placeholder="Write a your tour feedback" required></textarea>
@@ -178,25 +191,9 @@ class Review_Rating_Shortcode
                                 <label><?php echo __('Your Name', 'review-rating') ?></label>
                                 <input type="text" placeholder="Your Name" name="review_name" required>
                             </div>
-
-                            <div class="multi-criteria">
-                                <!-- Multi Criteria -->
-                                <?php foreach ($criteria_labels as $key => $label): ?>
-                                    <div class="form-inner">
-                                        <label><?php echo esc_html($label); ?></label>
-                                        <select name="rating_<?php echo esc_attr($key); ?>" required>
-                                            <option value=""><?php echo __('Select', 'review-rating') ?></option>
-                                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <option value="<?php echo $i; ?>">Give <?php echo $i; ?> ★</option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-
                             <?php wp_nonce_field('submit_review_nonce', 'review_nonce'); ?>
                             <input type="hidden" name="review_post_id" value="<?php echo esc_attr($post->ID); ?>">
-                            <button type="submit" name="submit_review" class="primary-btn1 black-bg">
+                            <button type="submit" name="submit_review" class="primary-btn1 black-bg mt-30">
                                 <span><?php echo __('Submit Rating', 'review-rating') ?></span>
                                 <span><?php echo __('Submit Rating', 'review-rating') ?></span>
                             </button>
