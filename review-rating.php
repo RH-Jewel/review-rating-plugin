@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Review & Rating
  * Description: Smart plugin for multi-criteria reviews and ratings to boost engagement.
