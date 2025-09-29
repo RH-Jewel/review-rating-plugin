@@ -83,11 +83,11 @@ class Review_Rating_Shortcode
                         <?php
                         for ($i = 1; $i <= 5; $i++) {
                             if ($i <= floor($avg_rating)) {
-                                echo '<li><i class="bi bi-star-fill"></i></li>';
+                                echo '<li>&#9733;</i></li>';
                             } elseif ($i - $avg_rating <= 0.5) {
-                                echo '<li><i class="bi bi-star-half"></i></li>';
+                                echo '<li class="half">&#11242;</li>';
                             } else {
-                                echo '<li><i class="bi bi-star"></i></li>';
+                                echo '<li>&#9734;</li>';
                             }
                         }
                         ?>
@@ -144,7 +144,7 @@ class Review_Rating_Shortcode
                                                         <span><?php echo esc_html($label); ?></span>
                                                         <ul class="star-list">
                                                             <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                                <li><?php echo ($i <= $rating) ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>'; ?></li>
+                                                                <li><?php echo ($i <= $rating) ? '&#9733;' : '&#9734;'; ?></li>
                                                             <?php endfor; ?>
                                                         </ul>
                                                     </li>
