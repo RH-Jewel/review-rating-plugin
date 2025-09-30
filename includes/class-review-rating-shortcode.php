@@ -156,7 +156,7 @@ class Review_Rating_Shortcode
                             </li>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p><?php echo __('No reviews yet. Be the first to write one!', 'review-rating') ?></p>
+                        <li><?php echo __('No reviews yet. Be the first to write one!', 'review-rating') ?></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -179,7 +179,7 @@ class Review_Rating_Shortcode
                                                 <i class="bi bi-star star-icon" data-value="<?php echo $i; ?>"></i>
                                             <?php endfor; ?>
                                         </div>
-                                        <input type="hidden" name="rating_<?php echo esc_attr($key); ?>" value="0" required>
+                                        <input type="hidden" name="rating_<?php echo esc_attr($key); ?>" value="0">
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
