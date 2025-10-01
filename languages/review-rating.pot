@@ -1,0 +1,148 @@
+# Copyright (C) 2025 RH Jewel
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: Review & Rating 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/review-rating-plugin\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-01T12:41:11+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: review-rating\n"
+
+#. Plugin Name of the plugin
+#: review-rating.php
+#: includes/class-review-rating-cpt.php:28
+#: includes/class-review-rating-cpt.php:51
+#: includes/class-review-rating-cpt.php:52
+msgid "Review & Rating"
+msgstr ""
+
+#. Description of the plugin
+#: review-rating.php
+msgid "Smart plugin for multi-criteria reviews and ratings to boost engagement."
+msgstr ""
+
+#. Author of the plugin
+#: review-rating.php
+msgid "RH Jewel"
+msgstr ""
+
+#. Author URI of the plugin
+#: review-rating.php
+msgid "https://rh-jewel.com/"
+msgstr ""
+
+#: includes/class-review-rating-card-shortcode.php:64
+msgid "Review"
+msgstr ""
+
+#: includes/class-review-rating-card-shortcode.php:64
+msgid "based on"
+msgstr ""
+
+#: includes/class-review-rating-card-shortcode.php:64
+#: includes/class-review-rating-card-shortcode.php:125
+msgid "reviews"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:25
+msgctxt "Post Type General Name"
+msgid "All Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:26
+msgctxt "Post Type Singular Name"
+msgid "Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:27
+msgid "Review & Ratings"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:29
+msgid "View Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:30
+#: includes/class-review-rating-cpt.php:31
+msgid "Add New Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:32
+msgid "Edit Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:33
+msgid "Update Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:34
+msgid "Search Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:35
+msgid "Not Found"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:36
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:78
+msgid "Review Message"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:79
+msgid "Status"
+msgstr ""
+
+#: includes/class-review-rating-settings.php:18
+msgid "Review Settings"
+msgstr ""
+
+#: includes/class-review-rating-settings.php:52
+msgid "Review Criteria Settings"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:78
+msgid "Customer Review & Rating"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:97
+msgid "based on "
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:97
+msgid " reviews"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:100
+#: includes/class-review-rating-shortcode.php:101
+msgid "Write a Review"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:159
+msgid "No reviews yet. Be the first to write one!"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:171
+msgid "Give Your Review"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:187
+msgid "Your Feedback"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:191
+msgid "Your Name"
+msgstr ""
+
+#: includes/class-review-rating-shortcode.php:197
+#: includes/class-review-rating-shortcode.php:198
+msgid "Submit Rating"
+msgstr ""
