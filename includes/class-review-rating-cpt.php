@@ -17,6 +17,13 @@ class Review_Rating_CPT
 
         // Approve / Unapprove action
         add_action('admin_post_toggle_review_status', [$this, 'toggle_review_status']);
+
+
+        // Add filter dropdown for post types
+        add_action('restrict_manage_posts', [$this, 'add_post_type_filter']);
+
+        // Add filter review post types query
+        add_action('pre_get_posts', [$this, 'filter_reviews_by_post_type']);
     }
 
     public function register_review_rating_cpt()
@@ -129,5 +136,59 @@ class Review_Rating_CPT
 
         wp_safe_redirect(admin_url('edit.php?post_type=review-rating'));
         exit;
+    }
+
+    /**
+     * Get all public posts list
+     */
+    public function add_post_type_filter($post_type)
+    {
+        if ($post_type !== 'review-rating') {
+            return;
+        }
+
+        // Get all public post types
+        $post_types = get_post_types(['public' => true], 'objects');
+
+        // Current filter
+        $current_filter = $_GET['review_for_post_type'] ?? '';
+
+        echo '<select name="review_for_post_type">';
+        echo '<option value="">' . __('All Post Types', 'review-rating') . '</option>';
+        foreach ($post_types as $ptype) {
+            $selected = selected($current_filter, $ptype->name, false);
+            echo '<option value="' . esc_attr($ptype->name) . '" ' . $selected . '>' . esc_html($ptype->labels->singular_name) . '</option>';
+        }
+        echo '</select>';
+    }
+
+
+    /**
+     * Public posts filter query
+     */
+    public function filter_reviews_by_post_type($query)
+    {
+        global $pagenow;
+        if (!is_admin() || $pagenow !== 'edit.php' || $query->get('post_type') !== 'review-rating') {
+            return;
+        }
+
+        $selected_type = $_GET['review_for_post_type'] ?? '';
+        if ($selected_type) {
+            // Get all post IDs of that post type
+            $posts = get_posts([
+                'post_type'      => $selected_type,
+                'posts_per_page' => -1,
+                'fields'         => 'ids',
+            ]);
+
+            $query->set('meta_query', [
+                [
+                    'key'     => '_review_post_id',
+                    'value'   => $posts,
+                    'compare' => 'IN'
+                ]
+            ]);
+        }
     }
 }
