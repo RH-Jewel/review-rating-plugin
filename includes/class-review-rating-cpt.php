@@ -150,8 +150,20 @@ class Review_Rating_CPT
         // Get all public post types
         $post_types = get_post_types(['public' => true], 'objects');
 
+
+        // Define the post types you want to remove.
+        $post_types_to_remove = ['review-rating', 'attachment', 'post', 'page', 'mega-menu', 'footer-blocks'];
+
+        // Loop through the removal list and unset each post type.
+        foreach ($post_types_to_remove as $type_slug) {
+            if (isset($post_types[$type_slug])) {
+                unset($post_types[$type_slug]);
+            }
+        }
+
         // Current filter
         $current_filter = $_GET['review_for_post_type'] ?? '';
+
 
         echo '<select name="review_for_post_type">';
         echo '<option value="">' . __('All Post Types', 'review-rating') . '</option>';
@@ -169,6 +181,7 @@ class Review_Rating_CPT
     public function filter_reviews_by_post_type($query)
     {
         global $pagenow;
+
         if (!is_admin() || $pagenow !== 'edit.php' || $query->get('post_type') !== 'review-rating') {
             return;
         }
@@ -191,4 +204,7 @@ class Review_Rating_CPT
             ]);
         }
     }
+
+
+    // End curly brace     
 }
