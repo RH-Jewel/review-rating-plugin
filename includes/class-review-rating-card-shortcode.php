@@ -9,6 +9,7 @@ class Post_Rating_Shortcode
     {
         add_shortcode('post_rating', [$this, 'render_post_rating']);
         add_shortcode('post_rating_count', [$this, 'render_post_rating_count']);
+        add_shortcode('total_post_rating_count', [$this, 'render_total_post_count']);
     }
 
     /**
@@ -124,6 +125,50 @@ class Post_Rating_Shortcode
             </div>
             <span class="total"><?php echo esc_html($total_reviews) . ' ' . esc_html__('reviews', 'review-rating') ?></span>
         </div>
+    <?php
+        return ob_get_clean();
+    }
+
+    /**
+     * Only Render all rating total count
+     * @var string
+     */
+    public function render_total_post_count()
+    {
+
+        global $post;
+
+        if (empty($post) || !isset($post->ID)) {
+            return '';
+        }
+
+        $post_id = $post->ID;
+
+        // Approved reviews only for this post
+        $reviews = get_posts([
+            'post_type'      => 'review-rating',
+            'post_status'    => 'publish',
+            'numberposts'    => -1,
+            'meta_key'       => '_review_post_id',
+            'meta_value'     => $post_id,
+        ]);
+
+        $total_reviews = count($reviews);
+        $avg_rating    = 0;
+        $all_ratings   = [];
+
+        if ($total_reviews > 0) {
+            foreach ($reviews as $review) {
+                $overall = get_post_meta($review->ID, '_rating_overall', true);
+                $all_ratings[] = intval($overall);
+            }
+            $avg_rating = round(array_sum($all_ratings) / $total_reviews, 1);
+        }
+
+        ob_start();
+    ?>
+
+        <?php echo esc_html($total_reviews) ?>
 <?php
         return ob_get_clean();
     }
