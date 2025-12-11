@@ -10,6 +10,7 @@ class Post_Rating_Shortcode
         add_shortcode('post_rating', [$this, 'render_post_rating']);
         add_shortcode('post_rating_count', [$this, 'render_post_rating_count']);
         add_shortcode('total_post_rating_count', [$this, 'render_total_post_count']);
+        add_shortcode('get_average_rating', [$this, 'get_average_rating_by_post_type']);
     }
 
     /**
@@ -130,7 +131,7 @@ class Post_Rating_Shortcode
     }
 
     /**
-     * Only Render all rating total count
+     * Only Render all rating total count inside loop
      * @var string
      */
     public function render_total_post_count()
@@ -171,5 +172,62 @@ class Post_Rating_Shortcode
         <?php echo esc_html($total_reviews) ?>
 <?php
         return ob_get_clean();
+    }
+
+
+    /**
+     * Get the global average rating for a post type.
+     *
+     * @param string $post_type The post type to calculate for (ex: 'tour')
+     * @return float The average rating (0 if none)
+     */
+    function get_average_rating_by_post_type($post_type)
+    {
+
+        if (empty($post_type)) {
+            return 0;
+        }
+
+        // Get all posts of the given post type
+        $posts = get_posts([
+            'post_type'   => $post_type,
+            'post_status' => 'publish',
+            'numberposts' => -1,
+            'fields'      => 'ids',
+        ]);
+
+        if (empty($posts)) {
+            return 0;
+        }
+
+        $all_ratings = [];
+
+        // Loop through each post and fetch its reviews
+        foreach ($posts as $post_id) {
+
+            $reviews = get_posts([
+                'post_type'   => 'review-rating',
+                'post_status' => 'publish',
+                'numberposts' => -1,
+                'meta_key'    => '_review_post_id',
+                'meta_value'  => $post_id,
+                'fields'      => 'ids',
+            ]);
+
+            foreach ($reviews as $review_id) {
+                $rating = get_post_meta($review_id, '_rating_overall', true);
+                if ($rating !== '') {
+                    $all_ratings[] = floatval($rating);
+                }
+            }
+        }
+
+        // No ratings at all
+        if (empty($all_ratings)) {
+            return 0;
+        }
+
+        // Return global average
+        return round(array_sum($all_ratings) / count($all_ratings), 1);
     }
 }
