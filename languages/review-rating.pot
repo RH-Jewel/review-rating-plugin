@@ -3,22 +3,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Review & Rating 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/review-rating-plugin\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/review-rating\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-10T13:14:27+00:00\n"
+"POT-Creation-Date: 2025-12-11T06:48:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: review-rating\n"
 
 #. Plugin Name of the plugin
 #: review-rating.php
-#: includes/class-review-rating-cpt.php:28
-#: includes/class-review-rating-cpt.php:51
-#: includes/class-review-rating-cpt.php:52
+#: includes/class-review-rating-cpt.php:35
+#: includes/class-review-rating-cpt.php:58
+#: includes/class-review-rating-cpt.php:59
 msgid "Review & Rating"
 msgstr ""
 
@@ -37,68 +37,72 @@ msgstr ""
 msgid "https://rh-jewel.com/"
 msgstr ""
 
-#: includes/class-review-rating-card-shortcode.php:64
+#: includes/class-review-rating-card-shortcode.php:66
 msgid "Review"
 msgstr ""
 
-#: includes/class-review-rating-card-shortcode.php:64
+#: includes/class-review-rating-card-shortcode.php:66
 msgid "based on"
 msgstr ""
 
-#: includes/class-review-rating-card-shortcode.php:64
-#: includes/class-review-rating-card-shortcode.php:125
+#: includes/class-review-rating-card-shortcode.php:66
+#: includes/class-review-rating-card-shortcode.php:127
 msgid "reviews"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:25
+#: includes/class-review-rating-cpt.php:32
 msgctxt "Post Type General Name"
 msgid "All Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:26
+#: includes/class-review-rating-cpt.php:33
 msgctxt "Post Type Singular Name"
 msgid "Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:27
+#: includes/class-review-rating-cpt.php:34
 msgid "Review & Ratings"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:29
+#: includes/class-review-rating-cpt.php:36
 msgid "View Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:30
-#: includes/class-review-rating-cpt.php:31
+#: includes/class-review-rating-cpt.php:37
+#: includes/class-review-rating-cpt.php:38
 msgid "Add New Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:32
+#: includes/class-review-rating-cpt.php:39
 msgid "Edit Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:33
+#: includes/class-review-rating-cpt.php:40
 msgid "Update Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:34
+#: includes/class-review-rating-cpt.php:41
 msgid "Search Review & Rating"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:35
+#: includes/class-review-rating-cpt.php:42
 msgid "Not Found"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:36
+#: includes/class-review-rating-cpt.php:43
 msgid "Not found in Trash"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:78
+#: includes/class-review-rating-cpt.php:85
 msgid "Review Message"
 msgstr ""
 
-#: includes/class-review-rating-cpt.php:79
+#: includes/class-review-rating-cpt.php:86
 msgid "Status"
+msgstr ""
+
+#: includes/class-review-rating-cpt.php:169
+msgid "All Post Types"
 msgstr ""
 
 #: includes/class-review-rating-settings.php:18
